@@ -9,13 +9,10 @@ import java.util.List;
 public class NewsLoader extends AsyncTaskLoader<List<News>> {
 
 
-    private static final String USGS_REQUEST_URL =
-            "https://content.guardianapis.com/search?show-tags=contributor&q=football&api-key=e8efc59a-bc82-4f43-9673-b9c514b68655";
-
-    Context c;
-
-    public NewsLoader(Context context) {
+   private String url;
+    public NewsLoader(Context context , String url) {
         super(context);
+        this.url=url;
     }
 
     @Override
@@ -25,7 +22,7 @@ public class NewsLoader extends AsyncTaskLoader<List<News>> {
 
     @Override
     public List<News> loadInBackground() {
-      List<News> newsList= Query.fetchNewsData(USGS_REQUEST_URL);
+      List<News> newsList= Query.fetchNewsData(url);
       return newsList;
     }
 

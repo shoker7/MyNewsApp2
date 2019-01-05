@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="sections_for_spinner">
+        <item>POLITICS</item>
+        <item>FOOTBALL</item>
+        <item>BUSINESS</item>
+        <item>SOCIETY</item>
+        <item>MEDIA</item>
+        <item>TECHNOLOGY</item>
+    </array>
+
+    <array name="sections">
+        <item>politics</item>
+        <item>football</item>
+        <item>business</item>
+        <item>society</item>
+        <item>media</item>
+        <item>technology</item>
+    </array>
+</resources>
