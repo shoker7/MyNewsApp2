@@ -6,8 +6,11 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,66 +18,52 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     private NewsAdpater mAdapter;
 
-    String [] sections ;
-    String filterdURL ="https://content.guardianapis.com/search?show-tags=contributor&section=politics&q=football&api-key=e8efc59a-bc82-4f43-9673-b9c514b68655";
-    //"https://content.guardianapis.com/search?show-tags=contributor&q="+category+"&api-key=e8efc59a-bc82-4f43-9673-b9c514b68655";
-
+    /*String [] sections ;
+    String filterdURL =//"https://content.guardianapis.com/search?show-tags=contributor&section=politics&q=football&api-key=e8efc59a-bc82-4f43-9673-b9c514b68655";
+    "https://content.guardianapis.com/search?show-tags=contributor&q=football&api-key=e8efc59a-bc82-4f43-9673-b9c514b68655";
+*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ListView newsListView = findViewById(R.id.lv_list);
 
-        //sections=getResources().getStringArray(R.array.sections);
-
-        ListView newsListView = findViewById(R.id.list);
         mAdapter = new NewsAdpater(this, new ArrayList<News>());
+
         newsListView.setAdapter(mAdapter);
 
-       /* newsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.d("message","okkkkkkkkkkkkkkkkkkk");
-                Toast.makeText(MainActivity.this, "hiiii", Toast.LENGTH_SHORT).show();
-            }
-        });
-*/
         LoaderManager loaderManager = getLoaderManager();
         loaderManager.initLoader(0, null, this);
 
-      /*  Spinner spinner =(Spinner)findViewById(R.id.spinner);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                publishUI(i);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-        */
     }
 
 
-    @NonNull
+    /**
+     * Update the screen to display information from the given {@link News}.
+     */
+
     @Override
-    public Loader<List<News>> onCreateLoader(int i, @Nullable Bundle bundle) {
-        return new NewsLoader(this,filterdURL);
+    public Loader<List<News>> onCreateLoader(int i, Bundle bundle) {
+        return new NewsLoader(this);
     }
 
     @Override
     public void onLoadFinished(Loader<List<News>> loader, List<News> news) {
+
         mAdapter.clear();
-        if (news != null ) {
-            mAdapter.addAll(news);
+        if(news!=null){
+        mAdapter.addAll(news);
+            Log.d("tracking ","onloadfinish");
         }
+
+
     }
 
     @Override
     public void onLoaderReset(Loader<List<News>> loader) {
-        //mAdapter.clear();
+
     }
+
 
    /* public void publishUI(int i){
         String selectedSection =sections[i];
